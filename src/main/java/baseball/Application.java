@@ -4,6 +4,12 @@ import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
 
 public class Application {
+    private static final int GAME_RESTART_CHOICE = 1;
+    private static final int SYSTEM_TERMINATE_CHOICE = 2;
+    private static final int STRIKE_COUNT_CAN_END_GAME = 3;
+    private static final int STARTING_NUMBER_POSSIBLE_INPUT_NUMERIC_RANGE = 1;
+    private static final int ENDING_NUMBER_POSSIBLE_INPUT_NUMERIC_RANGE = 9;
+
     public static void main(String[] args) {
         Application application = new Application();
 
@@ -28,9 +34,9 @@ public class Application {
                 if (isGameTermination) {
                     int choice = application.executeRestartOrTerminate();
 
-                    if (choice == 1) {
+                    if (choice == GAME_RESTART_CHOICE) {
                         continue computerStart;
-                    } else if (choice == 2) {
+                    } else if (choice == SYSTEM_TERMINATE_CHOICE) {
                         System.out.println("프로그램을 종료합니다.");
                         break computerStart;
                     }
@@ -43,7 +49,8 @@ public class Application {
         int countAdded = 0;
 
         do {
-            int randomNumber = Randoms.pickNumberInRange(1, 9);
+            int randomNumber = Randoms.pickNumberInRange(STARTING_NUMBER_POSSIBLE_INPUT_NUMERIC_RANGE,
+                    ENDING_NUMBER_POSSIBLE_INPUT_NUMERIC_RANGE);
 
             if (!isContain(computerNumbers, randomNumber, countAdded)) {
                 computerNumbers[countAdded++] = randomNumber;
@@ -119,7 +126,7 @@ public class Application {
     }
 
     public boolean checkGameTermination(int strikeCount) {
-        if (strikeCount == 3) {
+        if (strikeCount == STRIKE_COUNT_CAN_END_GAME) {
             System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
             return true;
         }
@@ -149,7 +156,8 @@ public class Application {
         }
 
         for (int i = 0; i < 3; i++) {
-            if (!isNumberInRange(input.charAt(i) - '0', 1, 9)) {
+            if (!isNumberInRange(input.charAt(i) - '0', STARTING_NUMBER_POSSIBLE_INPUT_NUMERIC_RANGE,
+                    ENDING_NUMBER_POSSIBLE_INPUT_NUMERIC_RANGE)) {
                 throw new IllegalArgumentException("Invalid input: Input must be numbers between 1 and 9 only");
             }
         }
@@ -186,7 +194,7 @@ public class Application {
             return false;
         }
 
-        if (!isNumberInRange(choice.charAt(0) - '0', 1, 2)) {
+        if (!isNumberInRange(choice.charAt(0) - '0', GAME_RESTART_CHOICE, SYSTEM_TERMINATE_CHOICE)) {
             System.out.println("숫자 1 또는 2만 입력할 수 있습니다.");
             return false;
         }
