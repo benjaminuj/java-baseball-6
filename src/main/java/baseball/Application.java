@@ -36,10 +36,10 @@ public class Application {
 
                     if (choice == GAME_RESTART_CHOICE) {
                         continue computerStart;
-                    } else if (choice == SYSTEM_TERMINATE_CHOICE) {
-                        System.out.println("프로그램을 종료합니다.");
-                        break computerStart;
                     }
+                    
+                    System.out.println("프로그램을 종료합니다.");
+                    return;
                 }
             } while (!isGameTermination);
         }
